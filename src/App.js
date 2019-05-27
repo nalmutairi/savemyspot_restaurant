@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import "./App.css";
+
+//Components
+import Login from "./Components/Login";
+import Queue from "./Components/Queue";
+import Header from "./Components/Header";
 
 class App extends Component {
+  getView() {
+    return (
+      <Switch>
+        <Redirect exact from="/" to="/login/" />
+        <Route path="/login/" component={Login} />
+        <Route path="/queue/" component={Queue} />
+      </Switch>
+    );
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div
+        style={{ minHeight: "100vh", backgroundColor: "rgb(76,79,87)" }}
+        className="App"
+      >
+        <Header />
+        <main>{this.getView()}</main>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
