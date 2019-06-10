@@ -17,17 +17,6 @@ class Queue extends Component {
     };
   }
 
-  componentDidMount() {
-    socketStore.restaurantSignIn(authStore.restaurant);
-    socketStore.socket.on("restaurantQ", data => {
-      this.setState({ restaurant: data, queue: data.queue });
-    });
-  }
-
-  componentWillUnmount() {
-    socketStore.socket.off("restaurantQ");
-  }
-
   render() {
     if (authStore.loading && authStore.restaurant === null) {
       return <Redirect to="/login/" />;
