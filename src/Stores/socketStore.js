@@ -2,7 +2,7 @@ import socketIOClient from "socket.io-client";
 
 class SocketStore {
   constructor() {
-    this.socket = socketIOClient("http://127.0.0.1:3000");
+    this.socket = socketIOClient("https://savemyspot-node.codeunicorn.io/");
   }
   restaurantSignIn(restaurantID) {
     this.socket.emit("restaurant request", restaurantID);
