@@ -26,10 +26,13 @@ class AuthStore {
       axios.defaults.headers.common.Authorization = `${restaurant}`;
       axios.defaults.headers.common.Authorization = `${restaurantid}`;
       this.user = jwt_decode(token);
+      this.loading = false;
       this.restaurant = restaurant;
       this.restaurantid = restaurantid;
     } else {
       localStorage.removeItem("token");
+      localStorage.removeItem("restaurant");
+      localStorage.removeItem("restaurantid");
       delete axios.defaults.headers.common.Authorization;
       this.user = null;
       this.restaurant = null;
@@ -41,7 +44,6 @@ class AuthStore {
     const token = localStorage.getItem("token");
     const restaurant = localStorage.getItem("restaurant");
     const restaurantid = localStorage.getItem("restaurantid");
-
     if (token) {
       const user = jwt_decode(token);
       if (user.exp > Date.now() / 1000) {
@@ -60,37 +62,36 @@ class AuthStore {
       .catch(err => console.error(err));
   }
 
-  loginUser(userData, history) {
+  loginUser = async (userData, history) => {
     instance
       .post("/signin/", userData)
       .then(res => {
-        console.log("HOW", res.data.restaurant);
         this.restaurant = res.data.restaurant;
         this.getRestaurantDetails(res.data.restaurant);
         return res.data;
       })
       .then(user => {
-        console.log("oshfos");
         this.setUser(user.token, this.restaurant, this.restaurantid);
         this.loading = false;
       })
+      .then(() => history.push("/queue/"))
       .catch(err => console.error(err));
-    history.push("/queue/");
-  }
+  };
 
   getRestaurantDetails(restaurantID) {
     instance
       .get(`restaurant/detail/${restaurantID}/`)
       .then(restaurant => {
         this.restaurantid = restaurant;
-        // this.restaurauntLoading = false;
+        this.restaurauntLoading = false;
       })
       .catch(err => console.error(err));
   }
 
-  logout() {
-    this.setUser();
-  }
+  logout = async history => {
+    await this.setUser();
+    history.push("/login/");
+  };
 }
 
 decorate(AuthStore, {

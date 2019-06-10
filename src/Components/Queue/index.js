@@ -24,8 +24,12 @@ class Queue extends Component {
     });
   }
 
+  componentWillUnmount() {
+    socketStore.socket.off("restaurantQ");
+  }
+
   render() {
-    if (authStore.restaurant === null) {
+    if (authStore.loading && authStore.restaurant === null) {
       return <Redirect to="/login/" />;
     }
     let { queue } = this.state;
@@ -33,21 +37,18 @@ class Queue extends Component {
     if (queue) {
       queue = queue.reverse();
       QueueList = queue.map(queue => <QueueRow key={queue.id} queue={queue} />);
-    }
-    console.log("load", authStore.user, authStore.restaurantid);
-    if (!authStore.loading) {
-      console.log("not loading");
-
-      console.log("I AM THIS PERSON", authStore.restaurantid);
       return (
-        <div style={{ marginTop: 50 }} className="row center">
-          <table className="col-12 ">
-            <thead style={{ backgroundColor: "rgb(81,39,82)" }}>
-              <tr style={{ borderBottom: "5px solid rgb(81,39,82)" }}>
-                <th style={{ color: "white" }}>Position</th>
-                <th style={{ color: "white" }}>Name</th>
-                <th style={{ color: "white" }}># of Guests</th>
-                <th style={{ color: "white" }}>Seat</th>
+        <div style={{ marginTop: 50 }} className="row text-center">
+          <table className=" col-10 table table-bordered mx-auto">
+            <thead
+              className="text-center"
+              style={{ backgroundColor: "rgb(163,35,58)" }}
+            >
+              <tr>
+                <th style={white}>Position</th>
+                <th style={white}>Name</th>
+                <th style={white}># of Guests</th>
+                <th style={white}>Seat</th>
               </tr>
             </thead>
             <tbody>{QueueList}</tbody>
@@ -55,10 +56,13 @@ class Queue extends Component {
         </div>
       );
     } else {
-      console.log("STILL LAODING");
       return <div />;
     }
   }
 }
+
+const white = {
+  color: "white"
+};
 
 export default observer(Queue);

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
 
-import { Container, Navbar, Nav } from "react-bootstrap";
-import Jumbotron from "react-bootstrap/Jumbotron";
+import { Navbar, Nav } from "react-bootstrap";
 
 //Stores
 import authStore from "../../Stores/authStore";
@@ -16,12 +15,18 @@ class Header extends Component {
   getJumbotron() {
     if (authStore.restaurantid && authStore.restaurantid.data) {
       return (
-        <Jumbotron fluid>
-          <Container>
-            <h1>{authStore.restaurantid.data.name}</h1>
-            <p>{authStore.restaurantid.data.description}</p>
-          </Container>
-        </Jumbotron>
+        <div style={{ position: "relative" }} className="row text-center">
+          <img
+            alt="restaurant"
+            className="img-responsive"
+            src={authStore.restaurantid.data.picture}
+            style={jumboImg}
+          />
+          <div style={titlePos}>
+            <h1 style={title}>{authStore.restaurantid.data.name}</h1>
+            <p style={desc}>{authStore.restaurantid.data.description}</p>
+          </div>
+        </div>
       );
     }
   }
@@ -34,7 +39,6 @@ class Header extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">
-                <Nav.Link>Hello, {authStore.user.username}</Nav.Link>
                 <Nav.Link onClick={() => authStore.logout(this.props.history)}>
                   Logout
                 </Nav.Link>
@@ -63,5 +67,29 @@ class Header extends Component {
     return this.getHeaderView();
   }
 }
+
+//Styles
+const jumboImg = {
+  height: 300,
+  width: "100%",
+  objectFit: "cover",
+  opacity: 0.4
+};
+
+const titlePos = {
+  position: "absolute",
+  top: " 50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)"
+};
+
+const title = {
+  textShadow: "2px 2px black",
+  fontSize: 80,
+  fontWeight: "bold",
+  color: "white"
+};
+
+const desc = { textShadow: "2px 2px black", fontSize: 20, color: "white" };
 
 export default withRouter(observer(Header));

@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div
-        style={{ minHeight: "100vh", backgroundColor: "rgb(76,79,87)" }}
+        style={{ minHeight: "100vh", backgroundColor: "white" }}
         className="App"
       >
         <Header />

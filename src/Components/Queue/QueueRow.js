@@ -7,11 +7,11 @@ class QueueRow extends Component {
     const { queue } = this.props;
     return (
       <tr style={{ borderBottom: "1px solid black" }}>
-        <td style={{ color: "white" }}>{queue.position}</td>
-        <td style={{ color: "white" }}>
+        <td style={num}>{queue.position}</td>
+        <td style={text}>
           {queue.user.first_name} {queue.user.last_name}
         </td>
-        <td style={{ color: "white" }}>{queue.guests}</td>
+        <td style={num}>{queue.guests}</td>
         <td>
           <button
             className="btn btn-dark"
@@ -24,5 +24,9 @@ class QueueRow extends Component {
     );
   }
 }
+
+const num = { fontWeight: "bold", fontSize: 30, color: "rgb(163,35,58)" };
+
+const text = { fontWeight: "bold", fontSize: 25, color: "rgb(163,35,58)" };
 
 export default QueueRow;
