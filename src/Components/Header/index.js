@@ -9,9 +9,10 @@ import authStore from "../../Stores/authStore";
 
 class Header extends Component {
   componentDidMount() {
-    authStore.getRestaurantDetails(authStore.restaurant);
+    if (!authStore.loading) {
+      authStore.getRestaurantDetails(authStore.restaurant);
+    }
   }
-
   getJumbotron() {
     if (authStore.restaurantid && authStore.restaurantid.data) {
       return (
