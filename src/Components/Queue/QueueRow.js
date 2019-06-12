@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import socket from "../../Stores/socketStore";
+//Stores
+import socketStore from "../../Stores/socketStore";
 
 class QueueRow extends Component {
   render() {
@@ -15,7 +16,7 @@ class QueueRow extends Component {
         <td>
           <button
             className="btn btn-dark"
-            onClick={() => socket.seatGuest(queue.id)}
+            onClick={() => socketStore.seatGuest(queue.id)}
           >
             Seat
           </button>
@@ -25,8 +26,16 @@ class QueueRow extends Component {
   }
 }
 
-const num = { fontWeight: "bold", fontSize: 30, color: "rgb(163,35,58)" };
+const num = {
+  fontWeight: "bold",
+  fontSize: 30,
+  color: "rgb(163,35,58)"
+};
 
-const text = { fontWeight: "bold", fontSize: 25, color: "rgb(163,35,58)" };
+const text = {
+  fontWeight: "bold",
+  fontSize: 25,
+  color: "rgb(163,35,58)"
+};
 
 export default QueueRow;

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
-import AuthStore from "../Stores/authStore";
+//Stores
+import authStore from "../Stores/authStore";
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ class LoginForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    AuthStore.loginUser(this.state, this.props.history);
+    authStore.loginUser(this.state, this.props.history);
   }
 
   render() {
