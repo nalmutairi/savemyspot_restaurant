@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-//Stores
-import socketStore from "../../Stores/socketStore";
-
 class QueueRow extends Component {
   render() {
     const { queue } = this.props;
@@ -14,12 +11,7 @@ class QueueRow extends Component {
         </td>
         <td style={num}>{queue.guests}</td>
         <td>
-          <button
-            className="btn btn-dark"
-            onClick={() => socketStore.seatGuest(queue.id)}
-          >
-            Seat
-          </button>
+          <button className="btn btn-dark">Seat</button>
         </td>
       </tr>
     );
