@@ -6,7 +6,6 @@ import { observer } from "mobx-react";
 import QueueRow from "./QueueRow";
 
 //Stores
-import socketStore from "../../Stores/socketStore";
 import authStore from "../../Stores/authStore";
 
 class Queue extends Component {
