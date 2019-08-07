@@ -20,7 +20,10 @@ class Queue extends Component {
   componentDidMount() {
     socketStore.restaurantSignIn(authStore.restaurant);
     socketStore.socket.on("restaurantQ", data => {
-      this.setState({ restaurant: data, queue: data.queue });
+      this.setState({ queue: data });
+    });
+    socketStore.socket.on("update queue", () => {
+      socketStore.restaurantSignIn(authStore.restaurant);
     });
   }
 
@@ -34,7 +37,7 @@ class Queue extends Component {
     }
     let { queue } = this.state;
     let QueueList;
-    if (queue) {
+    if (queue.length > 0) {
       queue = queue.reverse();
       QueueList = queue.map(queue => <QueueRow key={queue.id} queue={queue} />);
       return (

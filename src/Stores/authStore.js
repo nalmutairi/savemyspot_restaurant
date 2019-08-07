@@ -3,7 +3,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 const instance = axios.create({
-  // baseURL: "http://127.0.0.1:8000/"
+  // baseURL: "http://127.0.0.1:8000"
   baseURL: "https://savemyspot-django.codeunicorn.io/"
 });
 
@@ -81,7 +81,7 @@ class AuthStore {
 
   getRestaurantDetails(restaurantID) {
     instance
-      .get(`restaurant/detail/${restaurantID}/`)
+      .get(`/restaurant/detail/${restaurantID}/`)
       .then(restaurant => {
         this.restaurantid = restaurant;
         this.restaurauntLoading = false;
